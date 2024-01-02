@@ -1,0 +1,39 @@
+// This is your updated Prisma schema file:
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               String    @id @unique @default(uuid())
+  username         String    @unique
+  firstName        String
+  lastName         String
+  phoneNumber      String    @unique
+  email            String    @unique
+  password         String
+  role             String?   @default("user")
+  profilePhoto     String?   @default("default.png")
+  verified         Boolean?  @default(false)
+  createdAt        DateTime? @default(now())
+  updatedAt        DateTime? @updatedAt
+  lastLogin        DateTime?             // Aggiunto attributo per l'ultimo login
+  reputationLevel  Int?      @default(0) // Aggiunto attributo per il livello di reputazione
+}
+
+// model userVerification {
+// 
+// }
+
+// model securityReport {
+// 
+// }
+
+// model securityJob {
+//
+// }
