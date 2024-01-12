@@ -1,4 +1,6 @@
 # Run sveltekit project
+open docker destop start conteiners group
+
 npm run dev
 
 # Setup database

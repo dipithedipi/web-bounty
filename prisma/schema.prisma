@@ -1,29 +1,77 @@
-// This is your updated Prisma schema file:
+//------------------------------------------------------------------------
+// REMEMBER:
+// add the logic to the server:
+// - with this configuration password can exist whitout user relationship
+// - with this configuration tokens can exist whitout user relationship
+//------------------------------------------------------------------------
 
+// This block defines the Prisma client generator.
+// The provider is set to "prisma-client-js", which means Prisma will generate a JavaScript client.
 generator client {
   provider = "prisma-client-js"
 }
 
+// This block defines the data source (the database) for the application.
+// The provider is set to "postgresql", which means the database used is PostgreSQL.
+// The database URL is taken from an environment variable "DATABASE_URL".
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
+// This block defines a "User" model. Each field in the model represents a column in the "User" table in the database.
+// There are also some Prisma directives (prefixed with @) that specify behaviors like unique values, default values, etc.
 model User {
-  id               String    @id @unique @default(uuid())
-  username         String    @unique
-  firstName        String
-  lastName         String
-  phoneNumber      String    @unique
-  email            String    @unique
-  password         String
-  role             String?   @default("user")
-  profilePhoto     String?   @default("default.png")
-  verified         Boolean?  @default(false)
-  createdAt        DateTime? @default(now())
-  updatedAt        DateTime? @updatedAt
-  lastLogin        DateTime?             // Aggiunto attributo per l'ultimo login
-  reputationLevel  Int?      @default(0) // Aggiunto attributo per il livello di reputazione
+  id              String   @id @unique @default(uuid()) // Unique identifier for the user, default is a UUID
+  username        String   @unique // Unique username
+  firstName       String   // User's first name
+  lastName        String   // User's last name
+  phoneNumber     String   @unique // Unique phone number
+  email           String   @unique // Unique email
+  profilePhoto    String?  @default("default.png") // Optional profile photo, default is "default.png"
+  verified        Boolean? @default(false) // Verification status, default is false
+  createdAt       DateTime @default(now()) // Creation time, default is the current time
+  updatedAt       DateTime @updatedAt // Last update time, automatically set to the current time on update
+  lastLogin       DateTime // last login time
+  ipAddress       String   // last login IP address
+  reputationLevel Int      @default(0) // reputation level, default is 0
+  role            UserType // User type, defined by the UserType enum
+  passwordId      Int      @unique // Unique password ID
+  password        Password @relation(fields: [passwordId], references: [id]) // Relation to the Password model
+  tokenId         Int      @unique // Unique token ID
+  tokens          Token[] // Relation to the Token model
+}
+
+// This block defines a "Password" model. This model is related to the "User" model through a relation.
+model Password {
+  id        Int       @id @unique @default(autoincrement()) // Unique identifier for the password, auto-incremented
+  hashed    String // Hashed password
+  salt      String // Salt used for hashing
+  changedAt DateTime? // Optional password change time
+  User      User? // Relation to the User model
+}
+
+// This block defines a "Token" model. This model is also related to the "User" model through a relation.
+model Token {
+  id         Int       @id @unique @default(autoincrement()) // Unique identifier for the token, auto-incremented
+  createdAt  DateTime  @default(now()) // Creation time, default is the current time
+  updatedAt  DateTime  @updatedAt // Last update time, automatically set to the current time on update
+  type       TokenType // Token type, defined by the TokenType enum
+  emailToken String    @unique // Unique email token
+  valid      Boolean   @default(true) // Validity status, default is true
+  userId     String    @unique
+  user       User      @relation(fields: [userId], references: [id]) // Relation to the User model
+}
+
+// These blocks define two enum types, "TokenType" and "UserType".
+enum TokenType {
+  EMAIL // Email token type
+  API // API token type
+}
+
+enum UserType {
+  USER // Regular user type
+  ADMIN // Admin user type
 }
 
 // model userVerification {
