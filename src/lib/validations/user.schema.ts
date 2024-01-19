@@ -21,7 +21,7 @@ export const RegisterUserSchema = z
 			.string({
 				required_error: 'phone number is required'
 			})
-			.min(1, 'phone number is required'),
+			.min(10, 'phone number is required'),
 		email: z
 			.string({
 				required_error: 'Email is required'
