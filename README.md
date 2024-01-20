@@ -141,3 +141,27 @@ Con SecureTest, il futuro dei tuoi software è nelle mani di esperti fidati. Ren
 
 # Work breakdown structure:
 <img src="documentazione_gep\Web_Bounty_wbs.png">
+
+# User Stories:
+
+- Come utente, voglio poter visualizzare la mia reputazione sulla piattaforma, basata su feedback e valutazioni ricevute, per avere una chiara indicazione delle mie competenze e affidabilità.
+
+- Come azienda, voglio poter registrare un nuovo account sulla piattaforma SecureTest fornendo le informazioni richieste, tra cui nome, email e password, per poter iniziare a utilizzare i servizi di sicurezza offerti da esperti qualificati.
+
+- Come tester esperto, voglio poter effettuare il login al sistema utilizzando le mie credenziali, per poter accettare incarichi di test e contribuire alla sicurezza del software.
+
+- Come azienda o privato, voglio poter caricare il mio software sulla piattaforma SecureTest, indicando se è pubblico o privato, per poter beneficiare di un test di sicurezza accurato e personalizzato.
+
+- Come esperto di sicurezza, voglio ricevere notifiche in tempo reale sugli incarichi disponibili, per poter scegliere quelli che corrispondono alle mie competenze e interessi.
+
+- Come amministratore del sistema, voglio poter verificare i documenti inviati dagli utenti per la loro identità, per garantire la qualifica degli esperti e la sicurezza della piattaforma.
+
+- Come azienda, voglio poter assegnare un incarico di testing a uno specifico esperto, per garantire che il progetto venga gestito da un professionista qualificato.
+
+- Come utente registrato, voglio poter visualizzare una dashboard personalizzata, dove posso monitorare gli incarichi attivi, la mia reputazione e i guadagni accumulati.
+
+- Come esperto di sicurezza, voglio avere una chat diretta con l'azienda o il privato nel caso sia necessario chiarire qualcosa
+
+- Come esperto di sicurezza, voglio poter ricevere ricompense finanziarie in base alla severità delle vulnerabilità individuate, per essere incentivato a fornire un servizio di alta qualità.
+
+- Come esperto di sicurezza, voglio poter contattare una azienda e reportare una vulnerabilità anche se l'azienda non ha richiesto nessun test su quel prodotto sofware

@@ -1,3 +1,6 @@
+# push the commit to main branch
+git push origin master:main
+
 # Run sveltekit project
 open docker destop start conteiners group
 
