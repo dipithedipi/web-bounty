@@ -2,7 +2,9 @@
 git push origin master:main
 
 # Run sveltekit project
-open docker destop start conteiners group
+open docker destop start containers group
+
+npm run check
 
 npm run dev
 

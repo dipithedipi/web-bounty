@@ -12,31 +12,49 @@ export async function POST({ request, cookies }: { request: Request, cookies: { 
 		const data = LoginUserSchema.parse(body);
 
 		const user = await prisma.user.findUnique({
-			where: { email: data.email }
+			where: { email: data.email },
+			include: { password: true }
 		});
 
-		if (!user || !(await bcrypt.compare(data.password, user.password))) {
-			return json({ message: 'Invalid email or password' }, { status: 401 });
+		if (!user) {
+			return json(
+				{ message: 'Invalid email' }, 
+				{ status: 401 }
+			);
 		}
 
-		const token = await signJWT({ sub: user.id }, { exp: `${JWT_EXPIRES_IN}m` });
+		// aggiungere la ricerca di un jwt gia' esistente
+		// se esiste, invalidarlo e crearne uno nuovo
 
-		const tokenMaxAge = parseInt(JWT_EXPIRES_IN) * 60;
+		const passwordMatch = await bcrypt.compare(data.password, user.password.hashed);
+		if (!passwordMatch) {
+			return json(
+				{ message: 'Invalid password' }, 
+				{ status: 401 }
+			);
+		}
+
+		const jwtToken = await signJWT(
+			{ sub: user.id }, 
+			{ exp: `${JWT_EXPIRES_IN}m` }
+		);
+
+		const jwtTokenMaxAge = parseInt(JWT_EXPIRES_IN) * 60;
 
 		const cookieOptions = {
 			httpOnly: true,
 			path: '/api',
 			secure: process.env.NODE_ENV !== 'development',
-			maxAge: tokenMaxAge
+			maxAge: jwtTokenMaxAge
 		};
 
-		cookies.set('token', token, cookieOptions);
+		cookies.set('jwtToken', jwtToken, cookieOptions);
 		cookies.set('logged-in', 'true', {
 			...cookieOptions,
 			httpOnly: false
 		});
 
-		return json({ token });
+		return json({ jwtToken });
 	} catch (error: any) {
 		if (error instanceof ZodError) {
 			return json({ message: 'failed validations', error: error.flatten() }, { status: 400 });
