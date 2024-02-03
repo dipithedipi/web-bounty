@@ -36,19 +36,16 @@ model User {
   //ipAddress       String // last login IP address
   reputationLevel Int      @default(0) // reputation level, default is 0
   role            UserType @default(USER) // User type, defined by the UserType enum
-  passwordId      Int      @unique // Unique password ID
-  password        Password @relation(fields: [passwordId], references: [id]) // Relation to the Password model
+ 
+  // -----------------------------------------------------------
+  hashed    String   @unique      // Hashed password
+  salt      String   @unique      // Salt used for hashing
+  changedAt DateTime @updatedAt // Password change time, automatically set to the current time on update
+  
+  // -----------------------------------------------------------
   tokens          Token[]  // Relation to the Token model
 }
 
-// This block defines a "Password" model. This model is related to the "User" model through a relation.
-model Password {
-  id        Int       @id @unique @default(autoincrement()) // Unique identifier for the password, auto-incremented
-  hashed    String // Hashed password
-  salt      String // Salt used for hashing
-  changedAt DateTime @updatedAt // Password change time, automatically set to the current time on update
-  User      User? // Relation to the User model
-}
 
 // This block defines a "Token" model. This model is also related to the "User" model through a relation.
 model Token {
