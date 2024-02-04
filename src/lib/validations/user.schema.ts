@@ -59,7 +59,7 @@ export const LoginUserSchema = z.object({
 			required_error: 'Password is required'
 		})
 		.min(1, 'Password is required')
-		.min(8, 'Password must be at least 8 characters')
+		.min(8, 'Password must be at least 8 characters'),
 });
 
 export type LoginUserInput = z.infer<typeof LoginUserSchema>;

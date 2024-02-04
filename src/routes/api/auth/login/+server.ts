@@ -10,10 +10,9 @@ export async function POST({ request, cookies }: { request: Request, cookies: { 
 	try {
 		const body = (await request.json()) as LoginUserInput;
 		const data = LoginUserSchema.parse(body);
-
+	
 		const user = await prisma.user.findUnique({
 			where: { email: data.email },
-			include: { password: true }
 		});
 
 		if (!user) {
@@ -26,7 +25,7 @@ export async function POST({ request, cookies }: { request: Request, cookies: { 
 		// aggiungere la ricerca di un jwt gia' esistente
 		// se esiste, invalidarlo e crearne uno nuovo
 
-		const passwordMatch = await bcrypt.compare(data.password, user.password.hashed);
+		const passwordMatch = await bcrypt.compare(data.password, user.hashed);
 		if (!passwordMatch) {
 			return json(
 				{ message: 'Invalid password' }, 
@@ -38,6 +37,33 @@ export async function POST({ request, cookies }: { request: Request, cookies: { 
 			{ sub: user.id }, 
 			{ exp: `${JWT_EXPIRES_IN}m` }
 		);
+
+		// update jwtToken in db
+		// invalid all other previus tokens
+		await prisma.token.updateMany({
+			where: {
+			  userId: user.id,
+			},
+			data: {
+			  valid: false,
+			},
+		  });
+	  
+		// update lastLogin
+		await prisma.user.update({
+			where: { id: user.id },
+			data: {
+			  lastLogin: new Date(),
+			},
+		  });
+	  
+		// Create new token
+		await prisma.token.create({
+			data: {
+			  tokenValue: jwtToken,
+			  userId: user.id,
+			},
+		  });
 
 		const jwtTokenMaxAge = parseInt(JWT_EXPIRES_IN) * 60;
 

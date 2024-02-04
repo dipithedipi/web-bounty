@@ -55,7 +55,8 @@ model Token {
   type       TokenType @default(API) // Token type, defined by the TokenType enum
   tokenValue String    @unique // Unique email token
   valid      Boolean   @default(true) // Validity status, default is true
-  userId     String    @unique
+  
+  userId     String    // Foreign key to the User model
   user       User      @relation(fields: [userId], references: [id]) // Relation to the User model
 }
 

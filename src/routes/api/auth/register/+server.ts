@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 import { ZodError } from 'zod';
 import { prisma } from '$lib/server/prisma';
 import { BCRYPT_SALT_ROUNDS } from '$env/static/private';
-import { signJWT } from '$lib/server/token';
+
 
 export async function POST({ request }: { request: Request }) {
   try {
@@ -23,28 +23,30 @@ export async function POST({ request }: { request: Request }) {
         phoneNumber: data.phoneNumber,
         email: data.email,
         profilePhoto: data.photo,
-        password: {
-          create: {
-			hashed: hashedPassword,
-			salt: salt,
-		  },
-        },
-		tokens: {
-			create: {
-				tokenValue: await signJWT({ sub: data.email }, { exp: '1h' })
-			}
-		}
+        hashed: hashedPassword,
+        salt: salt,
       },
     });
 
-    return json({ status: 'success', data: { ...user, password: undefined } }, { status: 201 });
+    return json(
+      { 
+        status: 'success', 
+        ...(process.env.NODE_ENV === 'development' ? { data: { ...user, password: undefined } } : {})
+      },
+      { status: 201 }
+    );
   } catch (error: any) {
+    console.log(error);
     if (error instanceof ZodError) {
       return json({ message: 'failed validations', error: error.flatten() }, { status: 400 });
     }
 
     if (error.code === 'P2002') {
-      return json({ message: 'user with that email already exists' }, { status: 409 });
+      return json(
+        { 
+          message: 'user with that ' + error.meta.target +' already exists',
+          error: error.meta.target,
+        }, { status: 409 });
     }
 
     return json({ message: error.message }, { status: 500 });
