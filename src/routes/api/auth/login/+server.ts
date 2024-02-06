@@ -5,6 +5,7 @@ import { prisma } from '$lib/server/prisma.js';
 import bcrypt from 'bcryptjs';
 import { signJWT } from '$lib/server/token.js';
 import { JWT_EXPIRES_IN } from '$env/static/private';
+import { JWT_COOKIE_TOKEN_NAME } from '$env/static/private';
 
 export async function POST({ request, cookies }: { request: Request, cookies: { set: (name: string, value: string, options?: any) => void } }) {
 	try {
@@ -74,7 +75,7 @@ export async function POST({ request, cookies }: { request: Request, cookies: { 
 			maxAge: jwtTokenMaxAge
 		};
 
-		cookies.set('jwtToken', jwtToken, cookieOptions);
+		cookies.set(JWT_COOKIE_TOKEN_NAME, jwtToken, cookieOptions);
 		cookies.set('logged-in', 'true', {
 			...cookieOptions,
 			httpOnly: false

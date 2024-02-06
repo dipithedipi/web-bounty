@@ -1,14 +1,15 @@
 import { verifyJWT } from '$lib/server/token';
 import { error, type Handle } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma';
+import { JWT_COOKIE_TOKEN_NAME } from '$env/static/private';
 
 export const handle: Handle = async ({ resolve, event }) => {
 	const { url, locals, request, cookies } = event;
 
 	let authToken: string | undefined;
 
-	if (cookies.get('token')) {
-		authToken = cookies.get('token');
+	if (cookies.get(JWT_COOKIE_TOKEN_NAME)) {
+		authToken = cookies.get(JWT_COOKIE_TOKEN_NAME);
 	} else if (request.headers.get('Authorization')?.startsWith('Bearer ')) {
 		authToken = request.headers.get('Authorization')?.substring(7);
 	}
