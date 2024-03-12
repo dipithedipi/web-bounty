@@ -1,7 +1,7 @@
-- Aggiungere quando si logga aggiornate il database
+X Aggiungere quando si logga aggiornate il database
 X aggiungere l'indirizzo ip di chi si logga
 - aggiungere il cambio password
-- sistemare il logout
+X sistemare il logout
 X database per i salt
 
 - Se mi loggo e genero 1 token, se mi riloggo e mi da un altro token invalidare il token precedente:
