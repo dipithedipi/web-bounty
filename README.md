@@ -164,4 +164,92 @@ Con SecureTest, il futuro dei tuoi software è nelle mani di esperti fidati. Ren
 
 - Come esperto di sicurezza, voglio poter ricevere ricompense finanziarie in base alla severità delle vulnerabilità individuate, per essere incentivato a fornire un servizio di alta qualità.
 
-- Come esperto di sicurezza, voglio poter contattare una azienda e reportare una vulnerabilità anche se l'azienda non ha richiesto nessun test su quel prodotto sofware
+- Come esperto di sicurezza, voglio poter contattare una azienda e reportare una vulnerabilità anche se l'azienda non ha richiesto nessun test su quel prodotto software
+
+# STARTUP PIVOT
+
+## Introduzione
+
+SecureTest è una piattaforma che mira a collegare aziende e privati con esperti di sicurezza informatica indipendenti per testare e risolvere vulnerabilità software. Tuttavia, dopo un'analisi approfondita del mercato e dei feedback degli utenti, è emersa la necessità di un pivot per garantire il successo a lungo termine della piattaforma.
+
+## Problema attuale
+
+Il problema principale di SecureTest è la scarsa acquisizione di aziende. La piattaforma vanta un pool di esperti qualificati e un sistema di verifica rigoroso, tuttavia, non è riuscita ad attirare un numero sufficiente di aziende per richiedere i suoi servizi.
+
+## Motivi del problema
+
+Le ragioni di questa scarsa acquisizione possono essere diverse:
+
+- Mancanza di consapevolezza: Le aziende potrebbero non essere a conoscenza dell'esistenza di SecureTest o dei benefici offerti dalla sua piattaforma.
+- Percezione del valore: Le aziende potrebbero non percepire il valore del testing di sicurezza software o non essere disposte a investire in questo servizio.
+- Concorrenza: Esistono diverse piattaforme simili sul mercato che offrono servizi simili, creando un ambiente competitivo.
+- Fiducia: Le aziende potrebbero essere riluttanti a condividere i loro software privati con una piattaforma online, temendo per la sicurezza dei loro dati.
+
+## Soluzione proposta: Pivot verso un modello focalizzato sui privati
+
+Per affrontare questi problemi, proponiamo un pivot che orienti SecureTest verso un modello focalizzato sui privati.
+
+In questo nuovo modello, la piattaforma si concentrerà su:
+
+- Fornire servizi di testing di sicurezza a privati e sviluppatori individuali.
+- Creare una community di utenti appassionati di sicurezza informatica.
+- Offrire risorse educative e formative sulla sicurezza informatica.
+
+### Vantaggi del pivot:
+
+- Maggiore bacino di utenza: I privati rappresentano un bacino di utenza potenzialmente molto più ampio rispetto alle aziende.
+- Minore concorrenza: Nel mercato del testing di sicurezza per privati la concorrenza è meno intensa.
+- Maggiore fiducia: I privati potrebbero essere più propensi a fidarsi di una piattaforma che si concentra sulla sicurezza dei loro dati personali.
+- Creazione di una community: Una community di utenti appassionati può generare passaparola positivo e promuovere la crescita della piattaforma.
+- Opportunità di monetizzazione: La piattaforma può generare entrate attraverso abbonamenti, pubblicità e servizi a valore aggiunto per i membri della community.
+
+## Come implementare il pivot:
+
+- Ricolineamento del marketing e del branding: Il sito web, i materiali di marketing e i messaggi chiave devono essere riorientati per attrarre privati e sviluppatori.
+
+# MULTYTENTATNCY
+SecureTest nasce direttamente con l'idea di multi-tenancy
+## Riassumento Strategie Multi-Tenant
+
+### 1. Progettazione del Database
+
+- Creare un database o uno schema separato per ogni tenant per isolare i dati e impedire l'accesso inter-tenant.
+- Implementare identificatori specifici per tenant nelle query e nelle tabelle del database.
+- Valutare l'utilizzo di un database condiviso con meccanismi di controllo degli accessi rigorosi e partizionamento dei dati a livello di tenant.
+
+### 2. Architettura dell'Applicazione
+
+- Impiegare un'architettura multi-tenant che separa i dati e le configurazioni specifiche del tenant dai componenti dell'applicazione condivisa.
+- Utilizzare identificatori tenant nella logica applicativa e nell'accesso ai dati.
+- Implementare il routing e le strutture URL specifiche del tenant.
+
+### 3. Gestione dei Tenant
+
+- Sviluppare un robusto sistema di gestione dei tenant.
+- Implementare processi di provisioning e onboarding dei tenant.
+- Fornire agli amministratori dei tenant strumenti per gestire le impostazioni, gli utenti e l'accesso ai dati.
+
+### 4. Autenticazione e Autorizzazione Utente
+
+- Implementare meccanismi di autenticazione e autorizzazione consapevoli del tenant.
+- Memorizzare le credenziali utente e gli elenchi di controllo degli accessi (ACL) specifici del tenant.
+- Utilizzare identificatori tenant nei token di autenticazione e nei controlli di autorizzazione.
+
+### 5. Sicurezza e Isolamento dei Dati
+
+- Implementare rigorosi controlli dell'accesso ai dati e meccanismi di crittografia.
+- Applicare la segregazione dei dati a tutti i livelli.
+- Eseguire regolarmente audit e monitoraggio dell'accesso ai dati dei tenant.
+
+### 6. Isolamento e Scalabilità delle Risorse
+
+- Implementare meccanismi di isolamento delle risorse.
+- Utilizzare quote di risorse e strumenti di monitoraggio.
+- Impiegare un'infrastruttura scalabile.
+
+### 7. Branding e Personalizzazione Specifici del Tenant
+
+- Consentire ai tenant di personalizzare il branding della propria applicazione.
+- Fornire agli amministratori dei tenant strumenti per configurare impostazioni e preferenze specifiche.
+- Consentire ai tenant di aggiungere moduli o integrazioni personalizzati.
+
